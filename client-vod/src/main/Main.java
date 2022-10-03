@@ -1,6 +1,8 @@
 package main;
 
 import contrat.IConnection;
+import contrat.IVODService;
+import contrat.MovieDesc;
 import exceptions.InvalidCredentialsException;
 import exceptions.SignUpFailed;
 
@@ -31,6 +33,13 @@ public class Main {
             } else {
                 System.out.println("Input not valid");
                 rq.displayRegisterOrConnection();
+            }
+
+            System.out.println("Here is the catalog of movies on demand:");
+            IVODService service = ic.getIVODServiceAccess();
+
+            for(MovieDesc m : service.viewCatalog()){
+                System.out.println(m.toString());
             }
 
         } catch (RemoteException | NotBoundException | SignUpFailed | InvalidCredentialsException e){

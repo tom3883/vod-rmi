@@ -1,4 +1,4 @@
-package main;
+package contrat;
 
 import java.io.Serializable;
 
@@ -23,5 +23,10 @@ public class MovieDesc implements Serializable {
 
     public String getSynopsis() {
         return synopsis;
+    }
+
+    @Override
+    public String toString() {
+        return isbn + " " + movieName + "\n\t Synopsis: " + synopsis + "\n";
     }
 }

@@ -9,4 +9,5 @@ import java.rmi.RemoteException;
 public interface IConnection extends Remote {
     boolean signUp (String mail, String password) throws SignUpFailed, RemoteException;
     boolean logIn (String mail, String password) throws InvalidCredentialsException, RemoteException;
+    IVODService getIVODServiceAccess() throws RemoteException;
 }

@@ -1,6 +1,7 @@
 package main;
 
 import contrat.IConnection;
+import contrat.IVODService;
 import exceptions.InvalidCredentialsException;
 import exceptions.SignUpFailed;
 
@@ -12,6 +13,7 @@ import java.util.Scanner;
 
 public class Connection extends UnicastRemoteObject implements IConnection {
     List<Client> clientList;
+    VODService service;
 
     public Connection(int numport) throws RemoteException{
         super(numport);
@@ -19,6 +21,7 @@ public class Connection extends UnicastRemoteObject implements IConnection {
         for(Client c : clientList){
             System.out.println(c.getMail());
         }
+        this.service = new VODService();
     }
 
     public boolean signUp(String mail, String password) throws SignUpFailed, RemoteException {
@@ -40,5 +43,9 @@ public class Connection extends UnicastRemoteObject implements IConnection {
         }
 
         throw new InvalidCredentialsException();
+    }
+
+    public IVODService getIVODServiceAccess() throws RemoteException {
+        return service;
     }
 }
