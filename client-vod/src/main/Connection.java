@@ -21,45 +21,6 @@ public class Connection extends UnicastRemoteObject implements IConnection {
         }
     }
 
-    public void displayRegisterOrConnection() {
-        System.out.println("Do you have an account (y/n) ?\n");
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.next();
-        switch(answer){
-            case "y" : displayConnection();
-            case "n" : displayRegister();
-        }
-    }
-
-    private void displayRegister() {
-        System.out.println("Register :\n Enter your email : ");
-        Scanner scanner = new Scanner(System.in);
-        String email = scanner.next();
-        System.out.println("\n Enter your password : ");
-        String password = scanner.next();
-        try {
-            signUp(email,password);
-        } catch (SignUpFailed e) {
-            System.out.println("Your email seems to already be used, try again");
-            displayRegister();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayConnection() {
-        System.out.println("Connection :\n Enter your email : ");
-        Scanner scanner = new Scanner(System.in);
-        String email = scanner.next();
-        System.out.println("\n Enter your password : ");
-        String password = scanner.next();
-        try {
-            logIn(email,password);
-        } catch (InvalidCredentialsException e) {
-            System.out.println("Your email seems to not be valid, try again");
-            displayConnection();
-        }
-    }
 
     public boolean signUp(String mail, String password) throws SignUpFailed, RemoteException {
         for(Client c : clientList){

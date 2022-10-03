@@ -21,7 +21,6 @@ public class Connection extends UnicastRemoteObject implements IConnection {
         }
     }
 
-
     public boolean signUp(String mail, String password) throws SignUpFailed, RemoteException {
         for(Client c : clientList){
             if(c.getMail().equals(mail)){
