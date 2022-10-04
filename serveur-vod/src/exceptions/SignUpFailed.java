@@ -1,4 +1,6 @@
 package exceptions;
 
-public class SignUpFailed extends Throwable {
+import java.rmi.RemoteException;
+
+public class SignUpFailed extends RemoteException {
 }

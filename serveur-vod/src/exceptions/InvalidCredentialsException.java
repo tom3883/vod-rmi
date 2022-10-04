@@ -1,4 +1,6 @@
 package exceptions;
 
-public class InvalidCredentialsException extends Throwable{
+import java.rmi.RemoteException;
+
+public class InvalidCredentialsException extends RemoteException {
 }

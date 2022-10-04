@@ -35,7 +35,7 @@ public class Main {
             try {
                 ic.signUp(rq.getEmail(), rq.getPassword());
                 service = ic.logIn(rq.getEmail(), rq.getPassword());
-            } catch (InvalidCredentialsException | RemoteException | SignUpFailed e) {
+            } catch (RemoteException | InvalidCredentialsException | SignUpFailed e) {
                 System.out.println("Email adress already used, you can retry");
                 askForConnection();
             }

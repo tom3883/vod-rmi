@@ -12,7 +12,7 @@ public class RequestConnection {
     String password;
 
     public String displayRegisterOrConnection() {
-        System.out.println("Do you have an account (y/n) ?\n");
+        System.out.println("Do you have an account (y/n) ?");
         Scanner scanner = new Scanner(System.in);
         String answer = scanner.next();
         return answer;
@@ -22,7 +22,7 @@ public class RequestConnection {
         System.out.println("Enter your email : ");
         Scanner scanner = new Scanner(System.in);
         String email = scanner.next();
-        System.out.println("\n Enter your password : ");
+        System.out.println("\nEnter your password : ");
         String password = scanner.next();
         setEmail(email);
         setPassword(password);
