@@ -9,7 +9,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Connection extends UnicastRemoteObject implements IConnection {
     List<Client> clientList;
@@ -37,15 +36,11 @@ public class Connection extends UnicastRemoteObject implements IConnection {
         return true;
     }
 
-    public boolean logIn(String mail, String password) throws InvalidCredentialsException {
+    public IVODService logIn(String mail, String password) throws InvalidCredentialsException {
         for(Client c: clientList){
-            if(c.getMail().equals(mail) && c.getPassword().equals(password)) return true;
+            if(c.getMail().equals(mail) && c.getPassword().equals(password)) return service;
         }
 
         throw new InvalidCredentialsException();
-    }
-
-    public IVODService getIVODServiceAccess() throws RemoteException {
-        return service;
     }
 }
