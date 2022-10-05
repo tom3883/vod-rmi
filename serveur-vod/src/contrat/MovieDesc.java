@@ -27,6 +27,8 @@ public class MovieDesc implements Serializable {
 
     @Override
     public String toString() {
-        return isbn + " " + movieName + "\n\t Synopsis: " + synopsis + "\n";
+        return  "Name : " + movieName + "\n" +
+                "ISBN : " + isbn + "\n" +
+                "Synopsis : " + synopsis + "\n";
     }
 }

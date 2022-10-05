@@ -6,11 +6,6 @@ import exceptions.InvalidCredentialsException;
 import exceptions.SignUpFailed;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
