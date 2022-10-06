@@ -28,9 +28,16 @@ public class VODService extends UnicastRemoteObject implements IVODService {
     }
 
     public Bill playMovie(String isbn, IClientBox box) throws RemoteException {
-        String movieContent = "coucou";
+        MovieDesc movieSelected=null;
+        for(MovieDesc m : movies){
+            if(m.getIsbn().equals(isbn)){
+                movieSelected = m;
+            }
+        }
         System.out.println("Playing movie...");
-        box.stream(movieContent.getBytes(StandardCharsets.UTF_8));
+        box.stream(movieSelected.getMovieName().getBytes(StandardCharsets.UTF_8));
+        ThreadStream thread1 = new ThreadStream(movieSelected, box);
+        thread1.run();
         System.out.println("End of movie.");
         return new Bill(isbn, 5);
     }

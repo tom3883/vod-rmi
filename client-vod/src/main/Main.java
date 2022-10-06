@@ -37,7 +37,7 @@ public class Main {
             }
         } else {
             System.out.println("Input not valid");
-            req.displayRegisterOrConnection();
+            askForConnection(req);
         }
     }
 
