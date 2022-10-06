@@ -1,9 +1,6 @@
 package main;
 
-import contrat.Bill;
-import contrat.IClientBox;
-import contrat.IVODService;
-import contrat.MovieDesc;
+import contrat.*;
 
 import java.nio.charset.StandardCharsets;
 import java.rmi.RemoteException;
@@ -15,12 +12,15 @@ public class VODService extends UnicastRemoteObject implements IVODService {
 
     List<MovieDesc> movies;
 
-    public VODService() throws RemoteException{
+    public VODService() throws RemoteException {
         this.movies = new ArrayList<>();
         MovieDesc m1 = new MovieDesc("OSS 117", "1", "Agent secret");
         MovieDesc m2 = new MovieDesc("Les bronzés font du ski", "2", "Vacances d'hiver entre amis");
+        String teaserM3 = "Alors on attends pas patrick ?!";
+        MovieDescExtended m3 = new MovieDescExtended("Camping", "3", "Vacances au camping entre amis", teaserM3.getBytes(StandardCharsets.UTF_8));
         movies.add(m1);
         movies.add(m2);
+        movies.add(m3);
     }
 
     public List<MovieDesc> viewCatalog() throws RemoteException {
