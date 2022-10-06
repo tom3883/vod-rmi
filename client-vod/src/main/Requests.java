@@ -33,9 +33,9 @@ public class Requests {
     }
 
     String chooseAMovie(){
-        System.out.println("Please select a movie you would like to watch (input isbn) : ");
+        System.out.println("Please select a movie you would like to watch (input isbn, you can type 'exit' to escape): ");
         String answer = scanner.next();
-        System.out.println("You chose the movie " + answer);
+        if(!answer.equals("exit")) System.out.println("You chose the movie " + answer);
         isbn = answer;
         return answer;
     }

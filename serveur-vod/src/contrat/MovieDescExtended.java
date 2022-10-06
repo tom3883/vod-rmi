@@ -24,7 +24,6 @@ public class MovieDescExtended extends MovieDesc {
         String t = new String(teaser, StandardCharsets.UTF_8);
         return "Name : " + movieName + "\n" +
                 "ISBN : " + isbn + "\n" +
-                "Synopsis : " + synopsis + "\n" +
-                "Teaser : " + t + "\n";
+                "Synopsis : " + synopsis;
     }
 }

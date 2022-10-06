@@ -1,6 +1,7 @@
 package main;
 
 import contrat.*;
+import exceptions.MovieNotExisting;
 
 import java.nio.charset.StandardCharsets;
 import java.rmi.RemoteException;
@@ -16,8 +17,7 @@ public class VODService extends UnicastRemoteObject implements IVODService {
         this.movies = new ArrayList<>();
         MovieDesc m1 = new MovieDesc("OSS 117", "1", "Agent secret");
         MovieDesc m2 = new MovieDesc("Les bronzés font du ski", "2", "Vacances d'hiver entre amis");
-        String teaserM3 = "Alors on attends pas patrick ?!";
-        MovieDescExtended m3 = new MovieDescExtended("Camping", "3", "Vacances au camping entre amis", teaserM3.getBytes(StandardCharsets.UTF_8));
+        MovieDescExtended m3 = new MovieDescExtended("Camping", "3", "Vacances au camping entre amis", "Alors on attends pas patrick ?!".getBytes(StandardCharsets.UTF_8));
         movies.add(m1);
         movies.add(m2);
         movies.add(m3);
@@ -27,13 +27,14 @@ public class VODService extends UnicastRemoteObject implements IVODService {
         return this.movies;
     }
 
-    public Bill playMovie(String isbn, IClientBox box) throws RemoteException {
+    public Bill playMovie(String isbn, IClientBox box) throws RemoteException, MovieNotExisting {
         MovieDesc movieSelected=null;
         for(MovieDesc m : movies){
             if(m.getIsbn().equals(isbn)){
                 movieSelected = m;
             }
         }
+        if(movieSelected==null) throw new MovieNotExisting();
         System.out.println("Playing movie...");
         box.stream(movieSelected.getMovieName().getBytes(StandardCharsets.UTF_8));
         ThreadStream thread1 = new ThreadStream(movieSelected, box);

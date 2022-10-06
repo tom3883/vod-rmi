@@ -2,12 +2,14 @@ package main;
 
 import contrat.*;
 import exceptions.InvalidCredentialsException;
+import exceptions.MovieNotExisting;
 import exceptions.SignUpFailed;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 
 public class Main {
     static IConnection ic;
@@ -41,6 +43,40 @@ public class Main {
         }
     }
 
+    public static void vod(Requests req) throws RemoteException {
+        System.out.println("Here is the catalog of movies on demand: ");
+        ClientBox cbox = new ClientBox();
+
+        for(MovieDesc m : service.viewCatalog()){
+            System.out.println(m.toString());
+            if(m instanceof MovieDescExtended){
+                System.out.print("Teaser : ");
+                cbox.stream(((MovieDescExtended) m).getTeaser());
+                System.out.println("\n");
+            }
+        }
+
+        chooseMovie(req, cbox);
+    }
+
+    private static void chooseMovie(Requests req, IClientBox cbox) {
+        String answer = req.chooseAMovie();
+
+        try {
+            if(answer.equals("exit")){
+                System.exit(0);
+            }
+            Bill bill = service.playMovie(answer, cbox);
+            System.out.println(bill.toString());
+            System.out.println("Type 'pay' or whatever you want to skip");
+            new Scanner(System.in).next();
+            vod(req);
+        } catch (MovieNotExisting | RemoteException e) {
+            System.out.println("Wrong input, try again");
+            chooseMovie(req, cbox);
+        }
+    }
+
     public static void main(String[] args) {
         try {
             Registry reg = LocateRegistry.getRegistry(2001);
@@ -49,18 +85,7 @@ public class Main {
 
             Requests req = new Requests();
             askForConnection(req);
-
-            System.out.println("Here is the catalog of movies on demand:");
-
-            for(MovieDesc m : service.viewCatalog()){
-                System.out.println(m.toString());
-            }
-
-            String answer = req.chooseAMovie();
-            ClientBox cbox = new ClientBox();
-            Bill bill = service.playMovie(answer, cbox);
-            System.out.println(bill.toString());
-
+            vod(req);
 
         } catch (RemoteException | NotBoundException e){
             e.printStackTrace();
