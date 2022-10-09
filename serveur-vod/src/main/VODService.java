@@ -35,11 +35,11 @@ public class VODService extends UnicastRemoteObject implements IVODService {
             }
         }
         if(movieSelected==null) throw new MovieNotExisting();
-        System.out.println("Playing movie...");
+        System.out.println("Playing movie : " + movieSelected.getIsbn());
         box.stream(movieSelected.getMovieName().getBytes(StandardCharsets.UTF_8));
         ThreadStream thread1 = new ThreadStream(movieSelected, box);
         thread1.run();
-        System.out.println("End of movie.");
+        System.out.println("End of movie : " + movieSelected.getIsbn());
         return new Bill(isbn, 5);
     }
 }
